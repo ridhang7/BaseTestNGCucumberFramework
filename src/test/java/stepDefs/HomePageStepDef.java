@@ -3,17 +3,22 @@ package stepDefs;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+
+import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
+
+import helper.HelperMethod;
 import io.cucumber.java.en.And;
 import managerClass.CreateDriverManager;
 import pageObjs.HomePageObject;
 import picoContainer.TestContext;
 
-public class HomePageStepDef {
+public class HomePageStepDef extends HelperMethod{
 	WebDriver driver;
 	HomePageObject _homePage;
 	
 	public HomePageStepDef(TestContext testContext) {
 		_homePage = testContext.getPageObjectManager().getHomePage();
+		
 //		driver = testContext.getWebDriver();
 	}
 	
@@ -29,6 +34,7 @@ public class HomePageStepDef {
 		Thread.sleep(4000);
 		if (CreateDriverManager.getInstance().getDriver().findElement(By.xpath("//span[text()='Available Bookstore SOAP services:']")).getText() == "Available Bookstore SOAP services:")
 			{
+				ExtentCucumberAdapter.addTestStepLog("Check service page is displayed");
 				Assert.fail("Test case failed for service");
 			}
 	}
@@ -39,7 +45,8 @@ public class HomePageStepDef {
 		Thread.sleep(4000);
 		if (CreateDriverManager.getInstance().getDriver().findElement(By.xpath("//h1")).getText() == "Innovative and Intelligent Software Testing Platform")
 			{
-				Assert.fail("Test case failed for product");
+			ExtentCucumberAdapter.addTestStepLog("Check product page is displayed");	
+			Assert.fail("Test case failed for product");
 			}
 	}
 }

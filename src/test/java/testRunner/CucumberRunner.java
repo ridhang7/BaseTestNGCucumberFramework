@@ -6,11 +6,12 @@ import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
-		tags="@letsgoo",
+		tags="@letsgoo1",
 		features= {"src/test/resources/features"}, 
 		glue= {"stepDefs","Hooks"},
+		publish= true,
 		dryRun= false,
-		plugin= {})
+		plugin= {"pretty","com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"})
 public class CucumberRunner extends AbstractTestNGCucumberTests{
 	
 	@Override

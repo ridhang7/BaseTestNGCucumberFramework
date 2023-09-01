@@ -56,7 +56,7 @@ public class CreateDriverManager {
     	String browserDriver = "Chrome";
 		switch (browserDriver) {
 		case "Chrome":
-			System.setProperty("webdriver.chrome.driver", "C:\\Users\\ridha\\eclipse-workspace\\paraBankTestngFramework\\localBrowserDriver\\chromedriver-win32\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", "C:\\Users\\ridha\\eclipse-workspace\\TestNGCucumberFramework\\localBrowserDriver\\chromedriver-win32\\chromedriver.exe");
 			driver = new ChromeDriver();
 			setDriver(driver);
 		return driver;	
