@@ -1,52 +1,44 @@
 package stepDefs;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
-
-import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
-
 import helper.HelperMethod;
 import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import managerClass.CreateDriverManager;
 import pageObjs.HomePageObject;
 import picoContainer.TestContext;
 
 public class HomePageStepDef extends HelperMethod{
-	WebDriver driver;
 	HomePageObject _homePage;
 	
 	public HomePageStepDef(TestContext testContext) {
 		_homePage = testContext.getPageObjectManager().getHomePage();
-		
-//		driver = testContext.getWebDriver();
 	}
 	
 	@And("^I login valid using credentials")
 	public void i_login_valid_using_credentials() throws Throwable{
 		CreateDriverManager.getInstance().getDriver().get("https://parabank.parasoft.com/parabank/index.htm");
-		Thread.sleep(5000);
+		_homePage.loginWithCreds(CreateDriverManager.getInstance().getDriver());
 	}
 	
 	@And("^I Click on service")
 	public void i_click_on_service() throws Throwable{
-		CreateDriverManager.getInstance().getDriver().findElement(By.xpath("//a[text()='Services']")).click();
-		Thread.sleep(4000);
-		if (CreateDriverManager.getInstance().getDriver().findElement(By.xpath("//span[text()='Available Bookstore SOAP services:']")).getText() == "Available Bookstore SOAP services:")
-			{
-				ExtentCucumberAdapter.addTestStepLog("Check service page is displayed");
-				Assert.fail("Test case failed for service");
-			}
+		_homePage.clickOnService(CreateDriverManager.getInstance().getDriver());
+	}
+	
+	@Then("Verify Service page is displayed")
+	public void verify_service_page_is_displayed() throws Throwable
+	{
+		_homePage.verifyServicePageTitle(CreateDriverManager.getInstance().getDriver());
+	}
+	
+	@Then("Verify Product page is displayed")
+	public void verify_product_page_is_displayed() throws Throwable{
+		_homePage.verifyProductPageTitle(CreateDriverManager.getInstance().getDriver());
 	}
 	
 	@And("^I Click on Products")
 	public void i_click_on_products() throws Throwable{
-		CreateDriverManager.getInstance().getDriver().findElement(By.xpath("//a[text()='Products']")).click();
-		Thread.sleep(4000);
-		if (CreateDriverManager.getInstance().getDriver().findElement(By.xpath("//h1")).getText() == "Innovative and Intelligent Software Testing Platform")
-			{
-			ExtentCucumberAdapter.addTestStepLog("Check product page is displayed");	
-			Assert.fail("Test case failed for product");
-			}
-	}
+		_homePage.clickOnProductwithXpath(CreateDriverManager.getInstance().getDriver());
+		}
+			
 }
