@@ -7,7 +7,7 @@ import managerClass.CreateDriverManager;
 import pageObjs.HomePageObject;
 import picoContainer.TestContext;
 
-public class HomePageStepDef extends HelperMethod{
+public class HomePageStepDef extends HelperMethod {
 	HomePageObject _homePage;
 	
 	public HomePageStepDef(TestContext testContext) {
@@ -17,6 +17,7 @@ public class HomePageStepDef extends HelperMethod{
 	@And("^I login valid using credentials")
 	public void i_login_valid_using_credentials() throws Throwable{
 		CreateDriverManager.getInstance().getDriver().get("https://parabank.parasoft.com/parabank/index.htm");
+		CreateDriverManager.getInstance().getDriver().manage().window().maximize();
 		_homePage.loginWithCreds(CreateDriverManager.getInstance().getDriver());
 	}
 	

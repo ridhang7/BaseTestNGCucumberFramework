@@ -2,15 +2,17 @@ package managerClass;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import helper.BrowerStackConfig;
+import utils.XmlConfigReader;
 
 public class CreateDriverManager {
+	public static WebDriver driver;
     private static final ThreadLocal<WebDriver> threadLocalDriver = new ThreadLocal<>();
     private static final CreateDriverManager instance = new CreateDriverManager();
 
     private CreateDriverManager() {
         // Private constructor to enforce Singleton pattern
     }
-
     public static CreateDriverManager getInstance() {
         return instance;
     }
@@ -39,13 +41,20 @@ public class CreateDriverManager {
         }
         return driver;
     }
-
+    
+    
     private WebDriver createDriver() {
         // browserDriverType can be Local or Remote
-        String browserDriverType = "Local";
-        switch (browserDriverType) {
-            case "Local":
+        String browserExecutionType = XmlConfigReader.getbrowserStackExecutionFlag();
+        switch (browserExecutionType) {
+            case "No":
                 return createLocalDriver();
+            case "Yes":
+			try {
+				return createBrowserStackDriver();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
             default:
                 throw new IllegalArgumentException("Invalid browser driver type");
         }
@@ -53,17 +62,29 @@ public class CreateDriverManager {
 
     private WebDriver createLocalDriver() {
     	WebDriver driver;
-    	String browserDriver = "Chrome";
+    	String browserDriver = XmlConfigReader.getBrowserType();
 		switch (browserDriver) {
-		case "Chrome":
+		case "chrome":
 			System.setProperty("webdriver.chrome.driver", "C:\\Users\\ridha\\eclipse-workspace\\TestNGCucumberFramework\\localBrowserDriver\\chromedriver-win32\\chromedriver.exe");
 			driver = new ChromeDriver();
 			setDriver(driver);
 		return driver;	
-		
 		default:
 		return null;	
     }
+	
+	
+	}
+    @SuppressWarnings("static-access")
+	private WebDriver createBrowserStackDriver() {
+		
+    	try {
+			driver = BrowerStackConfig.setUp(XmlConfigReader.getExecutionJsonFile(), XmlConfigReader.getBrowserType());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		CreateDriverManager.getInstance().setDriver(driver);
+    	return driver;
 		
     }
 }

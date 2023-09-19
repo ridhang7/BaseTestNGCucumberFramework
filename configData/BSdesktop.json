@@ -1,0 +1,30 @@
+{
+	"server":"hub.browserstack.com",
+	"user":"ridhangpanchal_PcJwuh",
+	"key":"rksK2vXyu7NwuxxFtCLv",
+	
+	"capabilities":
+	{
+	  "bstack:options": 
+		{
+	      "buildName": "browserstack-build-1",
+	      "sessionName": "BStack single testng",
+	      "browserVersion": "latest",
+	      "debug": true,
+	      "local":false	    
+	    }
+	},
+	
+	"environments": 
+	{
+	    "edge": 
+	    {
+	      "browserName": "edge"
+	    },
+	    
+	    "chrome": 
+	    {
+	      "browserName": "chrome"
+	    }
+  }
+}

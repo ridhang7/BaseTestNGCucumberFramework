@@ -11,11 +11,12 @@ import org.testng.Assert;
 
 import com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter;
 
+import helper.BrowerStackConfig;
 import helper.HelperMethod;
 
 @SuppressWarnings("static-access")
-public class HomePageObject {
-	public HomePageObject(WebDriver driver) {
+public class HomePageObject extends BrowerStackConfig{
+	public HomePageObject(WebDriver driver)  {
 		PageFactory.initElements(driver,this);
 	}
 	

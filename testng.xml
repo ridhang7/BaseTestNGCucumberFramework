@@ -1,8 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<!-- <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd"> -->
 <suite name="Suite" verbose="2" parallel="classes" data-provider-thread-count="1">
-  <test name="Test" thread-count="2" >
-	    <parameter name="cucumber.filter.tags" value="@letsgoo" />
+  <test name="Test on edge" thread-count="1" >
+	    <parameter name="browserStackExecutionFlag" value="No" />
+	    <parameter name="config" value="BSdesktop.json"/>
+	    <parameter name="browser" value="Edge"/>
+	    <parameter name="cucumber.filter.tags" value="@letsgoo1" />
+		<parameter name="cucumber.features" value="src/test/resources" />
+		<parameter name="cucumber.glue" value="stepDefs, Hooks" />
+		<parameter name="cucumber.plugin" value="com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" />
+	    <classes>
+	      <exclude name="testRunner.CucumberRunner" />
+	    </classes>
+    </test> <!-- Test -->
+    <test name="Test on chrome" thread-count="1" >
+	    <parameter name="browserStackExecutionFlag" value="No" />
+	    <parameter name="config" value="BSdesktop.json"/>
+	    <parameter name="browser" value="chrome"/>
+	    <parameter name="cucumber.filter.tags" value="@letsgoo2" />
 		<parameter name="cucumber.features" value="src/test/resources" />
 		<parameter name="cucumber.glue" value="stepDefs, Hooks" />
 		<parameter name="cucumber.plugin" value="com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" />

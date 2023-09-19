@@ -7,9 +7,11 @@ import java.util.Date;
 
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
+import utils.XmlConfigReader;
 
 
 
@@ -23,6 +25,14 @@ import io.cucumber.testng.CucumberOptions;
 
 public class CucumberRunner extends AbstractTestNGCucumberTests{
 	public static File screenShotFolder;
+	
+	@BeforeTest
+	@Parameters({"browserStackExecutionFlag","config", "browser"})
+	public void launchBrowser(String browserStackExecutionFlag, String config, String browser) {
+		XmlConfigReader.setbrowserStackExecutionFlag(browserStackExecutionFlag);
+		XmlConfigReader.setExecutionJsonFile(config);
+		XmlConfigReader.setBrowserType(browser);
+	}
 	
 	@BeforeTest
 	public void createScreenShotFolder() {
